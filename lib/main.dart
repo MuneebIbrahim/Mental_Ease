@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:mental_ease/payment_gateway.dart';
 import 'package:mental_ease/user/Providers/Chat_Providers/Chat_Provider.dart';
 import 'package:mental_ease/user/Providers/Dashboard_Provider/Dashboard_Provider.dart';
 import 'package:mental_ease/user/Providers/Doctors_Provider/DoctorProfileProvider.dart';
@@ -18,6 +19,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  PaymentGateway.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

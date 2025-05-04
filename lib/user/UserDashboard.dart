@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:mental_ease/questions.dart';
 import 'package:provider/provider.dart';
 
 import '../Auth_Provider/login_Provider.dart';
@@ -269,10 +270,14 @@ class _UserdashboardState extends State<Userdashboard> {
                       height: MediaQuery.of(context).size.width*0.15,
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: ElevatedButton(
-                          onPressed: (){},
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return questions();
+                          },));
+                        },
                           child: Text('Start Now',style: TextStyle(fontWeight: FontWeight.bold),),
                         style: ElevatedButton.styleFrom(
-        
+
                           backgroundColor: Color(0xFF004D4D),
                           foregroundColor: Colors.white
                         ),

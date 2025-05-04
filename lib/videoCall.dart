@@ -71,7 +71,7 @@ class _callPageState extends State<callPage> {
     await _engine.setClientRole(role: ClientRoleType.clientRoleBroadcaster);
     _addAgoraEventHandlers();
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
-    configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
+    // configuration.dimensions = VideoDimensions(width: 1920, height: 1080);
     await _engine.setVideoEncoderConfiguration(configuration);
     await _engine.joinChannel(
       token: token,

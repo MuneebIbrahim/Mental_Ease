@@ -80,7 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
         preferredSize: Size.fromHeight(screenHeight * 0.12),
         child: ClipRRect(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(screenHeight * 0.03),
+            bottom: Radius.circular(screenHeight * 0.032),
           ),
           child: Stack(
             children: [
