@@ -52,6 +52,8 @@ dependencies:
   flutter_callkit_incoming: any
   permission_handler: ^11.4.0
   flutter_stripe: ^11.5.0
+  dio:
+  get:
 
 
 dev_dependencies:

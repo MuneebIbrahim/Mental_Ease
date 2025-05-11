@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_ease/user/ChatScreen.dart';
+import 'package:mental_ease/user/paymentgateway.dart';
 import 'package:provider/provider.dart';
-import '../Phycologist/Providers/Phycologist_Profile_Provider/Phycologist_Profile_Provider.dart';
-import '../payment_gateway.dart';
 import 'Providers/Doctors_Provider/DoctorProfileProvider.dart';
 
 class DoctorProfile extends StatefulWidget {
@@ -509,10 +508,13 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   height: screenHeight * 0.07,
                   width: screenWidth * 0.7,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
-                        return PaymentScreen();
-                      }));
+                    onPressed: () async {
+                      await StripeService.instance
+                          .makePayment(25, 'USD');
+                      print('Statusssss${StripeService.instance.isSuccess}');
+
+
+                      print('Hello');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF006064),
