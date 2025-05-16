@@ -26,7 +26,7 @@ class ModelProvider with ChangeNotifier {
 
     try {
       // Replace with your actual localhost API endpoint
-      const String apiUrl = 'http://192.168.1.3:5000/predict'; // For Android emulator
+      const String apiUrl = 'http://192.168.1.15:5000/predict'; // For Android emulator
       // const String apiUrl = 'http://localhost:5000/predict'; // For iOS simulator or real device
       // const String apiUrl = 'http://your-local-ip:5000/predict'; // For testing on real device
 

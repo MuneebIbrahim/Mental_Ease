@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mental_ease/user/ChatScreen.dart';
 import 'package:mental_ease/user/paymentgateway.dart';
 import 'package:provider/provider.dart';
+import 'Appointment_book.dart';
 import 'Providers/Doctors_Provider/DoctorProfileProvider.dart';
 
 class DoctorProfile extends StatefulWidget {
@@ -508,14 +512,24 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   height: screenHeight * 0.07,
                   width: screenWidth * 0.7,
                   child: ElevatedButton(
-                    onPressed: () async {
-                      await StripeService.instance
-                          .makePayment(25, 'USD');
-                      print('Statusssss${StripeService.instance.isSuccess}');
-
-
-                      print('Hello');
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DoctorDetailsScreen(doctorId: widget.doctorId!),
+                      ),
+                      );
                     },
+
+                  //   Stripe API code
+                  //   async {
+                  // await StripeService.instance
+                  //     .makePayment(25, 'USD');
+                  // print('Statusssss${StripeService.instance.isSuccess}');
+                  //
+                  //
+                  // print('Hello');
+                  // },
+
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFF006064),
                       foregroundColor: Colors.white,
@@ -692,3 +706,4 @@ class _DoctorProfileState extends State<DoctorProfile> {
     }).toList();
   }
 }
+

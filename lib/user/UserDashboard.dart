@@ -1,17 +1,20 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:mental_ease/questions.dart';
+import 'package:mental_ease/rough.dart';
 import 'package:provider/provider.dart';
 
 import '../Auth_Provider/login_Provider.dart';
 import '../Login.dart';
+import '../assesment_history.dart';
 import 'Doctors_Listing.dart';
 import 'Inbox.dart';
 import 'Profile.dart';
 import 'Providers/Dashboard_Provider/Dashboard_Provider.dart';
 import 'Providers/Profile_Provider/Profile_Provider.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-
+import 'package:mental_ease/user/AppointmentConfirmationScreen.dart';
 
 
 
@@ -25,12 +28,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0; // Track the selected index for GoogleNav
 
-
   // List of screens to display based on the selected index
   final List<Widget> _screens = [
     Userdashboard(),
-    InboxScreen(firebase_auth.FirebaseAuth.instance.currentUser!.uid), // Replace with your Messages screen
-    Userdashboard(), // Replace with your Doctors screen
+    InboxScreen(firebase_auth.FirebaseAuth.instance.currentUser!.uid),
+    AssessmentHistoryScreen(),// Replace with your Messages screen
     UserProfile(),
   ];
 
@@ -67,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   GButton(
                     icon: Icons.medical_services,
-                    text: 'Doctors',
+                    text: 'Assessment History',
                   ),
                   GButton(
                     icon: Icons.person,
@@ -262,7 +264,6 @@ class _UserdashboardState extends State<Userdashboard> {
                       padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.width*0.03),
                       child: ListTile(
                         title: Text("Self-Assessment",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: MediaQuery.of(context).size.height*0.025),),
-                        subtitle: Text("40 Questions",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: MediaQuery.of(context).size.height*0.025),),
                         trailing: Image.asset('assets/images/Questionaire.png',width: MediaQuery.of(context).size.width*0.2,),
                       ),
                     ),
@@ -272,7 +273,7 @@ class _UserdashboardState extends State<Userdashboard> {
                       child: ElevatedButton(
                         onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return Questions();
+                            return Assessment_Options();
                           },));
                         },
                           child: Text('Start Now',style: TextStyle(fontWeight: FontWeight.bold),),
@@ -385,5 +386,118 @@ class _UserdashboardState extends State<Userdashboard> {
   }
 }
 
+class Assessment_Options extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.2),
+        child: ClipRRect(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(MediaQuery.of(context).size.height * 0.03),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFE0F7FA), Color(0xFF80DEEA)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.02,
+                ),
+                child: Text(
+                  "Assessment Page",
+                  style: TextStyle(
+                    fontFamily: "CustomFont", // Optional: customize if needed
+                    color: Colors.black,
+                    fontSize: MediaQuery.of(context).size.height * 0.035,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.08,
+          vertical: MediaQuery.of(context).size.height * 0.05,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildOptionCard(
+              context,
+              icon: Icons.psychology_alt_outlined,
+              title: "Start Assessment",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Questions()),
+                );
+              },
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+            _buildOptionCard(
+              context,
+              icon: Icons.history,
+              title: "View History",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AssessmentHistoryScreen()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
+  Widget _buildOptionCard(BuildContext context, {required IconData icon, required String title, required VoidCallback onTap}) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.03),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.shade300,
+              blurRadius: 10,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: Color(0xFF006064), size: screenHeight * 0.04),
+            SizedBox(width: screenWidth * 0.04),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: screenHeight * 0.028,
+                fontWeight: FontWeight.bold,
+                fontFamily: "CustomFont",
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

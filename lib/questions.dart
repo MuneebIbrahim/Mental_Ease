@@ -982,6 +982,13 @@ class QuestionsState extends State<Questions> {
                   width: buttonWidth,
                   child: ElevatedButton(
                     onPressed: currentQuestionIndex > 0 ? _handlePrevious : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF006064),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                    ),
                     child: Text('Previous'),
                   ),
                 ),
@@ -992,11 +999,19 @@ class QuestionsState extends State<Questions> {
                     onPressed: _handleSubmit,
                     child: Text('Submit'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: Colors.blueGrey,
+                      foregroundColor: Colors.white,
                     ),
                   )
                       : ElevatedButton(
                     onPressed: _handleNext,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF006064),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(36),
+                      ),
+                    ),
                     child: Text('Next'),
                   ),
                 ),
